@@ -1,17 +1,20 @@
 ﻿Shader "RubioDeLimon/CartoonWater" {
     Properties{
-        _Color("Color", Color) = (1,1,1,1)
-        _BlendColor("Blend Color", Color) = (1,1,1,1)
+		// Main
+        [Header(Main)]_Color("Color", Color) = (1,1,1,1)
         _MainTex("Albedo (RGB)", 2D) = "white" {}
+		_FoamTex ("Foam", 2D) = "white" {}
     	_Glossiness("Smoothness", Range(0,1)) = 0.5
         _Metallic("Metallic", Range(0,1)) = 0.0
-        _InvFade("Soft Factor", Range(0.01,3.0)) = 1.0
-        _FadeLimit("Fade Limit", Range(0.00,1.0)) = 0.3
-		_FoamTex ("Foam", 2D) = "white" {}
 		_ScrollX ("Scroll X", Range(-5,5)) = 1
 		_ScrollY ("Scroll Y", Range(-5,5)) = 1
-
-
+		// Shoreline
+		[Header(Shoreline)]
+        _BlendColor("Blend Color", Color) = (1,1,1,1)
+        _InvFade("Soft Factor", Range(0.01,3.0)) = 1.0
+        _FadeLimit("Fade Limit", Range(0.00,1.0)) = 0.3
+		// Waves
+		[Header(Waves)]
 		_Freq ("Frequency", Range(0,5)) = 3
 		_Speed ("Speed", Range(0,100)) = 10
 		_Amp ("Amplitude", Range(0,1)) = 0.5
@@ -94,6 +97,7 @@
 			o.Albedo = c.rgb * fade + _BlendColor * (1 - fade);
 
 			o.Albedo += (foam/8);
+			o.Alpha = _Color.a;
     	}
     	ENDCG
     }
