@@ -1,1 +1,2 @@
-Cartoon water for Unity5
+# Toon-Water
+Water shader cartoon style for Unity5
